@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import AllPosts from "../views/AllPosts.vue";
 import APost from "../views/APost.vue";
 import AddPost from "../views/AddPost.vue";
-import AboutView from "../views/AboutView"
+import AboutView from "../views/AboutView";
+import SignupView from "../views/SignupView";
 
 const routes = [{
         path: '/',
@@ -34,7 +35,12 @@ const routes = [{
         path: "/:catchAll(.*)",
         name: "AllPosts",
         component: AllPosts,
-    }
+    },
+    {
+        path: "/api/signup",
+        name: "Sign Up",
+        component: SignupView,
+    },
 ]
 
 

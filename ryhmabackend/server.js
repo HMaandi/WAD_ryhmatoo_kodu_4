@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('./database');
 const cors = require('cors')
 const port = process.env.PORT || 3000;
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -19,7 +20,30 @@ app.use(express.json());
 // The await keyword can only be used inside an async function.
 // The await keyword makes the function pause the execution and wait for a resolved promise before it continues
 // Syntax:  "async(req, res) => {let value = await promise}"
+app.post('/api/signup', async (req, res) => {
+    try {
+      const credentials = req.body;
+      console.log("user signup post req arrived")
+      // Check if the user already exists
+      const existingUser = await pool.query(
+        "SELECT * FROM usertable WHERE email = $1", [credentials.email]
+      )
+      if (existingUser.rows.length > 1) {
+        return res.status(400).json({ message: 'User already exists' });
+      }
 
+      // Add a new user to the table
+     await pool.query("INSERT INTO usertable(email, password) values($1, $2)", [credentials.email, credentials.password])
+     console.log(credentials.email + " added to db")
+  
+      // Create and send JWT
+      const token = jwt.sign({ email: credentials.email, password: credentials.password }, 'salav6ti'); 
+      res.json({ token });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
 
 app.post('/api/posts', async(req, res) => {
     try {
