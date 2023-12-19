@@ -45,6 +45,23 @@ app.post('/api/signup', async (req, res) => {
     }
   });
 
+app.post('/api/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await pool.query("SELECT * FROM usertable WHERE email = $1", [email]);
+        if (user.rows.length > 0 && user.rows[0].password === password) {
+            const token = jwt.sign({ email: email }, "salav6ti");
+            res.json({ token });
+        } else {
+            res.status(400).json({ message: 'Invalid credentials' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
 app.post('/api/posts', async(req, res) => {
     try {
         console.log("a post request has arrived");
