@@ -52,3 +52,31 @@
         }
     }
 </script>
+<style scoped>
+.signup-form {
+  border-radius: 10px;
+  padding: 20px;
+  display: inline-block;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  border-radius: 5px;
+  padding: 8px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+button {
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #007bff; /* You can change the color to your preference */
+  color: white;
+  cursor: pointer;
+}
+
+</style>
