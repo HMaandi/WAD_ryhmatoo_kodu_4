@@ -11,7 +11,7 @@
       <div class="button-group">
         <button type="submit">Login</button>
         <span>Or</span>
-        <router-link to="/signup">Sign Up</router-link>
+        <router-link to="api/signup">Sign Up</router-link>
       </div>
     </form>
   </div>
@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "LoginComp",
   data() {
     return {
       email: "",
